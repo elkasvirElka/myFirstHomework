@@ -4,7 +4,7 @@ package com.example.a25fli.myfirsthomework.model;
  * Created by 25fli on 17.02.2019.
  */
 
-public class VkPostModel {
+public class NewsModel {
     private Integer id;
     private String avatar_url;
     private String username;
