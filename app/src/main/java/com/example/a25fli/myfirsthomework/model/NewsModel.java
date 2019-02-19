@@ -1,13 +1,19 @@
 package com.example.a25fli.myfirsthomework.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by 25fli on 17.02.2019.
  */
 
 public class NewsModel {
+    @SerializedName("id")
     private Integer id;
+    @SerializedName("avatar_url")
     private String avatar_url;
+    @SerializedName("username")
     private String username;
+    @SerializedName("post_date")
     private Long post_date;
     private String post_text;
     private String post_image;

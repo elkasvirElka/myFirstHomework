@@ -1,4 +1,5 @@
-[
+{
+"data": [
   {
     "id": 1241235,
     "avatar_url": "https://randomuser.me/api/portraits/men/18.jpg",
@@ -119,4 +120,5 @@
     "comments_count": 33,
     "shares_count": 25
   }
-]
+    ]
+}

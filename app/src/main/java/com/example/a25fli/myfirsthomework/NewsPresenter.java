@@ -1,8 +1,17 @@
 package com.example.a25fli.myfirsthomework;
 
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
+
+import com.example.a25fli.myfirsthomework.model.NewsModel;
 
 import org.json.JSONObject;
+
+import java.util.List;
+
+import static com.example.a25fli.myfirsthomework.JSONHelper.importFromJSON;
+
 
 /**
  * Created by 25fli on 18.02.2019.
@@ -10,15 +19,19 @@ import org.json.JSONObject;
 
 public class NewsPresenter {
     NewsView view;
+    Context context;
     SwipeRefreshLayout mSwipeRefreshLayout;
-    public NewsPresenter(NewsView view, SwipeRefreshLayout mSwipeRefreshLayout){
+    public NewsPresenter(NewsView view, SwipeRefreshLayout mSwipeRefreshLayout, Context context){
         this.view = view;
         this.mSwipeRefreshLayout = mSwipeRefreshLayout;
+        this.context = context;
         getNews();
     }
     private boolean requestInprogress = false;
     public void getNews() {
         //при refresh обновляем тоже самое кол-во записей
+
+        List<NewsModel> items = importFromJSON(context);
 
         requestInprogress = true;
         /*RetrofitClientInstance.service.getNews(currentPage + 1 ).enqueue(new Callback<NewsListModel>() {
