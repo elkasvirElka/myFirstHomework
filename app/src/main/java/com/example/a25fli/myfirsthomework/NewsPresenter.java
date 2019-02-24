@@ -8,6 +8,8 @@ import com.example.a25fli.myfirsthomework.model.NewsModel;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.a25fli.myfirsthomework.JSONHelper.importFromJSON;
@@ -16,7 +18,8 @@ import static com.example.a25fli.myfirsthomework.JSONHelper.importFromJSON;
 /**
  * Created by 25fli on 18.02.2019.
  */
-
+//Лайк и передача параметров
+    //Дата - возврат 7 дней назад или дату
 public class NewsPresenter {
     NewsView view;
     Context context;
@@ -29,38 +32,18 @@ public class NewsPresenter {
     }
     private boolean requestInprogress = false;
     public void getNews() {
-        //при refresh обновляем тоже самое кол-во записей
-
-        List<NewsModel> items = importFromJSON(context);
-
         requestInprogress = true;
-        /*RetrofitClientInstance.service.getNews(currentPage + 1 ).enqueue(new Callback<NewsListModel>() {
-            @Override
-            public void onResponse(Call<NewsListModel> call, Response<NewsListModel> response) {
-                requestInprogress = false;
-                if ( response.body() != null && response.isSuccessful()) {
-                    currentPage = response.body().page;
-                    pageCount = response.body().totalPages;
-                    view.onSuccess(response.body().news);
-                } else {
-                    try {
-                        JSONObject jObjError = new JSONObject(response.errorBody().string());
-                        view.onError(jObjError.getString("message"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        view.onError(null);
-                    }
-                }
-
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-
-            @Override
-            public void onFailure(Call<NewsListModel> call, Throwable t) {
-                requestInprogress = false;
-                view.onError(null);
-            }
-        });*/
+        //при refresh обновляем тоже самое кол-во записей
+        List<NewsModel> items = new ArrayList<>();
+        try {
+            items = importFromJSON(context);
+            mSwipeRefreshLayout.setRefreshing(false);
+            requestInprogress = false;
+            view.onSuccess(items);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            view.onError(e.getMessage());
+        }
     }
 
     RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {

@@ -15,11 +15,17 @@ public class NewsModel {
     private String username;
     @SerializedName("post_date")
     private Long post_date;
+    @SerializedName("post_text")
     private String post_text;
+    @SerializedName("post_image")
     private String post_image;
+    @SerializedName("is_user_like")
     private Boolean is_user_like;
+    @SerializedName("likes_count")
     private Integer likes_count;
+    @SerializedName("comments_count")
     private Integer comments_count;
+    @SerializedName("shares_count")
     private Integer shares_count;
 
     public Integer getId() {

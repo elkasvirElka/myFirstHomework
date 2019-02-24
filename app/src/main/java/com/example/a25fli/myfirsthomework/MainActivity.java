@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.a25fli.myfirsthomework.model.NewsModel;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                android.R.color.holo_blue_dark);
        mSwipeRefreshLayout.setRefreshing(true);
 
-       presenter = new NewsPresenter(this, mSwipeRefreshLayout, getBaseContext());
        newsList = findViewById(R.id.recycleView);
 
        newsList.setLayoutManager(new LinearLayoutManager(this));
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
        adapter = new NewsAdapter();
        newsList.setAdapter(adapter);
+       presenter = new NewsPresenter(this, mSwipeRefreshLayout, getBaseContext());
+       newsList.addOnScrollListener(presenter.recyclerViewOnScrollListener);
     }
 
     /**
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
      */
     @Override
     public void onRefresh() {
-
+        presenter.getNews();
     }
 
     @Override
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     @Override
     public void onSuccess(List<NewsModel> models) {
-
+        newsList.getRecycledViewPool().clear();
+        adapter.addItems(models);
     }
 }
